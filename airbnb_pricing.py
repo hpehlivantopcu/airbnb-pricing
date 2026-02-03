@@ -38,8 +38,6 @@ print("="*70)
 # ═══════════════════════════════════════════════════════════
 # LOAD DATA
 # ═══════════════════════════════════════════════════════════
-# Download from: https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data
-# Save as AB_NYC_2019.csv in the same folder
 
 try:
     df = pd.read_csv('AB_NYC_2019.csv')
