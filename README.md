@@ -31,8 +31,3 @@ python airbnb_pricing.py
 
 The code will train two models (Random Forest + Gradient Boosting), pick the better one, and show example price recommendations.
 
-If I were building this for production:
-- Add seasonality (prices spike around holidays)
-- Include neighborhood walk scores, subway proximity
-- Track how quickly listings get booked at different price points
-- Build a simple web interface where hosts input their features and get a price range
