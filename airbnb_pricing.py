@@ -41,9 +41,9 @@ print("="*70)
 
 try:
     df = pd.read_csv('AB_NYC_2019.csv')
-    print(f"\n✓ Loaded {len(df):,} Airbnb listings")
+    print(f"\n[OK] Loaded {len(df):,} Airbnb listings")
 except FileNotFoundError:
-    print("\n⚠️  AB_NYC_2019.csv not found!")
+    print("\n[WARNING] AB_NYC_2019.csv not found!")
     print("   Download from: https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data")
     print("   Place it in this folder, then run again.\n")
     exit()
@@ -52,7 +52,7 @@ except FileNotFoundError:
 # CLEAN & PREP
 # ═══════════════════════════════════════════════════════════
 
-print("\n→ Cleaning data...")
+print("\n-> Cleaning data...")
 # Drop listings with missing or extreme prices
 df = df[df['price'] > 0]
 df = df[df['price'] < 1000]  # Remove outliers
@@ -137,7 +137,7 @@ axes[1,2].set_title('Most Hosts Allow 1-Night Stays')
 
 plt.tight_layout()
 plt.savefig('airbnb_eda.png', dpi=150, bbox_inches='tight', facecolor='#0d1117')
-print("\n✓ Saved airbnb_eda.png")
+print("\n[OK] Saved airbnb_eda.png")
 
 # ═══════════════════════════════════════════════════════════
 # BUILD PRICING MODEL
@@ -166,7 +166,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Model 1: Random Forest
-print("\n→ Training Random Forest...")
+print("\n-> Training Random Forest...")
 rf = RandomForestRegressor(n_estimators=100, max_depth=15, random_state=42, n_jobs=-1)
 rf.fit(X_train, y_train)
 rf_pred = rf.predict(X_test)
@@ -176,7 +176,7 @@ rf_r2 = r2_score(y_test, rf_pred)
 print(f"   MAE: ${rf_mae:.2f}  |  R²: {rf_r2:.3f}")
 
 # Model 2: Gradient Boosting
-print("\n→ Training Gradient Boosting...")
+print("\n-> Training Gradient Boosting...")
 gb = GradientBoostingRegressor(n_estimators=200, learning_rate=0.05, 
                                max_depth=5, random_state=42)
 gb.fit(X_train, y_train)
@@ -189,7 +189,7 @@ print(f"   MAE: ${gb_mae:.2f}  |  R²: {gb_r2:.3f}")
 # Pick best
 best_model = rf if rf_mae < gb_mae else gb
 best_name = "Random Forest" if best_model == rf else "Gradient Boosting"
-print(f"\n✓ Winner: {best_name}")
+print(f"\n[OK] Winner: {best_name}")
 
 # Feature importance
 importance = pd.DataFrame({
@@ -206,7 +206,7 @@ ax.set_title('What Actually Matters for Pricing', fontweight='bold', color='whit
 ax.tick_params(colors='white')
 plt.tight_layout()
 plt.savefig('feature_importance.png', dpi=150, bbox_inches='tight', facecolor='#0d1117')
-print("✓ Saved feature_importance.png")
+print("[OK] Saved feature_importance.png")
 
 # ═══════════════════════════════════════════════════════════
 # PRICING RECOMMENDATIONS
@@ -254,7 +254,7 @@ summary = {
     'test_size': [len(X_test)]
 }
 pd.DataFrame(summary).to_csv('model_summary.csv', index=False)
-print("\n✓ Saved model_summary.csv")
+print("\n[OK] Saved model_summary.csv")
 
 print("\n" + "="*70)
 print(" DONE - Check the PNG files for visualizations")

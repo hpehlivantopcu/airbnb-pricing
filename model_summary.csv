@@ -1,0 +1,2 @@
+model,mae,r2,train_size,test_size
+Random Forest,48.500424138248874,0.5586187440519282,38868,9718
